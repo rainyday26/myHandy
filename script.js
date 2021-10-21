@@ -1,22 +1,22 @@
 // ==UserScript==
 // @name		 theHandy support for PornHub
 // @namespace	http://tampermonkey.net/
-// @version	  1.4
+// @version	  1.5
 // @updateURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
-// @description  PH support for the Handy
+// @description  Web support for the Handy
 // @author	   Nodude
-// @match		https://*.pornhub.com/view_video.php?viewkey=*
+// @match		*://*/*
 // @grant		GM_xmlhttpRequest
 // @require	  http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
 // @run-at	   document-idle
 // ==/UserScript==
 
-//https://*.pornhub.com/view_video.php?viewkey=*
-//*://*/*
 //Inspired by notSafeForDev
 //Backported changes by jabiim
 
 /*
+Update 1.5
+Fixed bugs
 Update 1.4
 Added custom website support
 Update 1.3
@@ -296,32 +296,32 @@ class Hander {
 	}
   
   async function shouldLoad() {
-	await GM_xmlhttpRequest({
-		//TODO: Should be release relative
-		url: "https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/data.json",
-			synchronous: true,
-		method: "GET",
-		onload: function(response) {
-			let result = JSON.parse(response.responseText);
-			console.log(result.length);
-			
-			for (var i=0; i<result.length; i++) {
-				var obj = result[i];
-				
-				const regex = new RegExp(decodeURIComponent(obj["url_regex"]));
-				if (regex.test(window.location.href)) {
-					console.log("Found match!");
-					console.log(obj["video_xpath"]);
-					return init(obj["video_xpath"]);
-				}
+    await GM_xmlhttpRequest({
+      //TODO: Should be release relative
+			url: "https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/data.json",
+      synchronous: true,
+			method: "GET",
+			onload: function(response) {
+				let result = JSON.parse(response.responseText);
+        console.log(result.length);
+        
+        for (var i=0; i<result.length; i++) {
+          var obj = result[i];
+          
+          const regex = new RegExp(decodeURIComponent(obj["url_regex"]));
+          if (regex.test(window.location.href)) {
+            console.log("Found match!");
+            console.log(obj["video_xpath"]);
+            return init(obj["video_xpath"]);
+          }
+        }
 			}
-		}
-	});
+		});
   }
   
 	async function init(xpth) {
-		console.log("loading :)");
-
+	  console.log("loading :)");
+	  
 		window.addEventListener("beforeunload", function(e){
 			if (shouldHand()) {
 				hand.onPause();
@@ -373,61 +373,61 @@ class Hander {
 		setVidButton.value = "Set video element";
 		setVidButton.style.display = 'block';
 
-		const choose = document.createElement("select");
-		choose.onhover = (event) => {
-		//TODO: Highlight
-		}
-		window.addEventListener("load", function () {
-		setTimeout(function(){
-			const vids = document.getElementsByTagName("video");
-			for (var i=0; i<vids.length; i++) {
-			const vid = vids[i];
-			const tmp = document.createElement("option");
-			tmp.value = i;
-			var sources = vid.getElementsByTagName("source");
-			if (sources.length > 0) {
-				tmp.innerHTML = vid.getElementsByTagName("source")[0].src;
-			} else {
-				tmp.innerHTML = "unknown";
-			}
-			choose.appendChild(tmp);
-			}
-			
-			//TODO: Support for builtin
-			var bigi = 0;
-			var bigd = 0;
-			for (var i in vids) {
-			const vid = vids[i];
-			const vidsize = vid.videoHeight * vid.videoWidth;
-			if (vid.videoHeight * vid.videoWidth > bigd) {
-				bigi = i;
-				bigd = vidsize;
-			}
-			}
-			choose.selectedIndex = bigi;
+    const choose = document.createElement("select");
+    choose.onhover = (event) => {
+      //TODO: Highlight
+    }
+    window.addEventListener("load", function () {
+      setTimeout(function(){
+        const vids = document.getElementsByTagName("video");
+        for (var i=0; i<vids.length; i++) {
+          const vid = vids[i];
+          const tmp = document.createElement("option");
+          tmp.value = i;
+          var sources = vid.getElementsByTagName("source");
+          if (sources.length > 0) {
+            tmp.innerHTML = vid.getElementsByTagName("source")[0].src;
+          } else {
+            tmp.innerHTML = "unknown";
+          }
+          choose.appendChild(tmp);
+        }
+        
+        //TODO: Support for builtin
+        var bigi = 0;
+        var bigd = 0;
+        for (var i in vids) {
+          const vid = vids[i];
+          const vidsize = vid.videoHeight * vid.videoWidth;
+          if (vid.videoHeight * vid.videoWidth > bigd) {
+            bigi = i;
+            bigd = vidsize;
+          }
+        }
+        choose.selectedIndex = bigi;
 
-			setVidButton.onclick = (event) => {
-			event.preventDefault();
-			console.log(vids[choose.selectedIndex].src);
-			videoObj = vids[choose.selectedIndex];
+        setVidButton.onclick = (event) => {
+          event.preventDefault();
+          console.log(vids[choose.selectedIndex].src);
+          videoObj = vids[choose.selectedIndex];
 
-			videoObj.addEventListener("play", onplay);
-			videoObj.addEventListener("playing", onplay);
-			videoObj.addEventListener("progress", onplay);
+          videoObj.addEventListener("play", onplay);
+          videoObj.addEventListener("playing", onplay);
+          videoObj.addEventListener("progress", onplay);
 
-			videoObj.addEventListener("seeked", onplay);
-			videoObj.addEventListener("seeking", onpause);
+          videoObj.addEventListener("seeked", onplay);
+          videoObj.addEventListener("seeking", onpause);
 
-			videoObj.addEventListener("pause", onpause);
-			videoObj.addEventListener("waiting", onpause);
+          videoObj.addEventListener("pause", onpause);
+          videoObj.addEventListener("waiting", onpause);
 
-			}
-			}, 500); //TODO: Reliable way to know if loaded
-		})
-			selecting.appendChild(choose);
-		selecting.appendChild(document.createElement("br"));
-		*/
-	
+        }
+        }, 500); //TODO: Reliable way to know if loaded
+    })
+		selecting.appendChild(choose);
+    selecting.appendChild(document.createElement("br"));
+    */
+    
 		const inputOffset = document.createElement("label");
 		inputOffset.innerHTML += 'Offset:<input class="input-text" style="display: inline-block; width: 200px; margin-left: 4px" type="number" name="Offset" value="0"><span> ms</span></label>';
 		selecting.appendChild(inputOffset);
@@ -439,7 +439,7 @@ class Hander {
 		inputOffsetI.style.marginBottom = '4px';
 
 
-	
+    
 		var stats = document.createElement("a");
 		stats.id="state";
 		selecting.appendChild(stats);
@@ -546,15 +546,15 @@ class Hander {
 			event.preventDefault();
 		}, false);
 
-	videoObj.addEventListener("play", onplay);
-	videoObj.addEventListener("playing", onplay);
-	//videoObj.addEventListener("progress", onplay);
+		videoObj.addEventListener("play", onplay);
+		videoObj.addEventListener("playing", onplay);
+		//videoObj.addEventListener("progress", onplay);
 
-	videoObj.addEventListener("seeked", onplay);
-	videoObj.addEventListener("seeking", onpause);
+		videoObj.addEventListener("seeked", onplay);
+		videoObj.addEventListener("seeking", onpause);
 
-	videoObj.addEventListener("pause", onpause);
-	videoObj.addEventListener("waiting", onpause);
+		videoObj.addEventListener("pause", onpause);
+		videoObj.addEventListener("waiting", onpause);
 
 		console.log("Done!");
 	}

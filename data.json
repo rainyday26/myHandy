@@ -6,5 +6,9 @@
 	{
 		"url_regex": "https%3A%2F%2Fspankbang.com%2F.*%2Fvideo%2F.*",
 		"video_xpath": "//video[@id='main_video_player_html5_api']"
+	},
+	{
+		"url_regex": "https%3A%2F%2Frule34video.com%2Fvideos%2F.*%2F.*",
+		"video_xpath": "//div[@id='kt_player'/div[@class='fp-player']/video"
 	}
 ]
