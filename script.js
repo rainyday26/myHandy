@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name		 theHandy support for PornHub
 // @namespace	http://tampermonkey.net/
-// @version	  1.5
+// @version	  1.6
+// @downloadURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @updateURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @description  Web support for the Handy
 // @author	   Nodude
@@ -15,6 +16,8 @@
 //Backported changes by jabiim
 
 /*
+Update 1.6
+Am stupid
 Update 1.5
 Fixed bugs
 Update 1.4
