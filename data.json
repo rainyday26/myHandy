@@ -2,5 +2,9 @@
 	{
 		"url_regex": "https%3A%2F%2F.*.pornhub.com%2Fview_video..*%3Fviewkey%3D.*",
 		"video_xpath": "//div[contains(@class,'_videoWrapper')]/video"
+	},
+	{
+		"url_regex": "https%3A%2F%2Fspankbang.com%2F.*%2Fvideo%2F.*",
+		"video_xpath": "//video[@id='main_video_player_html5_api']"
 	}
 ]
