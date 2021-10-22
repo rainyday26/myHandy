@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		 theHandy support for PornHub
 // @namespace	http://tampermonkey.net/
-// @version	  1.6
+// @version	  1.7
 // @downloadURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @updateURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @description  Web support for the Handy
@@ -16,6 +16,8 @@
 //Backported changes by jabiim
 
 /*
+Update 1.7
+Hide some debug information
 Update 1.6
 Am stupid
 Update 1.5
@@ -199,7 +201,7 @@ class Hander {
 	}
 
 	function shouldHand() {
-		console.log(scriptUrl, handyKey);
+		//console.log(scriptUrl, handyKey);
 		return scriptUrl != null && handyKey != null;
 	}
 
@@ -306,7 +308,7 @@ class Hander {
 			method: "GET",
 			onload: function(response) {
 				let result = JSON.parse(response.responseText);
-        console.log(result.length);
+        //console.log(result.length);
         
         for (var i=0; i<result.length; i++) {
           var obj = result[i];
