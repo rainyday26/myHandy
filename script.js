@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name		 theHandy support for PornHub
 // @namespace	http://tampermonkey.net/
-// @version	  1.81
+// @version	  1.9
 // @downloadURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @updateURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @description  Web support for the Handy
 // @author	   Nodude
 // @match		*://*/*
 // @grant		GM_xmlhttpRequest
+// @grant   GM_setValue
+// @grant   GM_getValue
 // @require	  http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
 // @run-at	   document-idle
 // ==/UserScript==
@@ -16,6 +18,8 @@
 //Backported changes by jabiim
 
 /*
+Update 1.9
+It now remembers the handykey
 Update 1.8
 Z-Index fix
 Update 1.7
@@ -190,7 +194,8 @@ class Hander {
 	'use strict';
 
 	var scriptUrl = null;
-	var handyKey = null;
+	var handyKey = GM_getValue("hs_handykey", null);
+  var handydelay = GM_getValue("hs_handydelay", 0);
 	var videoObj = null;
 	var hand = new Hander();
 
@@ -254,7 +259,6 @@ class Hander {
 	  script.innerHTML = `
 		  // Make the DIV element draggable:
 		  dragElement(document.getElementById("nodudewashere"));
-
 		  function dragElement(elmnt) {
 			var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 			if (document.getElementById(elmnt.id + "header")) {
@@ -264,7 +268,6 @@ class Hander {
 			  // otherwise, move the DIV from anywhere inside the DIV:
 			  elmnt.onmousedown = dragMouseDown;
 			}
-
 			function dragMouseDown(e) {
 			  e = e || window.event;
 			  //e.preventDefault();
@@ -275,7 +278,6 @@ class Hander {
 			  // call a function whenever the cursor moves:
 			  document.onmousemove = elementDrag;
 			}
-
 			function elementDrag(e) {
 			  e = e || window.event;
 			  e.preventDefault();
@@ -288,7 +290,6 @@ class Hander {
 			  elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
 			  elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
 			}
-
 			function closeDragElement() {
 			  // stop moving when mouse button is released:
 			  document.onmouseup = null;
@@ -364,7 +365,7 @@ class Hander {
 		uploadButton.className = 'submit-comment xh-button large red'
 		uploadButton.style.marginBottom = '4px';
 		uploadButton.type = 'button';
-		uploadButton.value = "Upload to handy";
+		uploadButton.value = "Sync to the handy";
 		uploadButton.disabled = true;
 		uploadButton.style.display = 'block';
 
@@ -379,7 +380,6 @@ class Hander {
 		setVidButton.type = 'button';
 		setVidButton.value = "Set video element";
 		setVidButton.style.display = 'block';
-
     const choose = document.createElement("select");
     choose.onhover = (event) => {
       //TODO: Highlight
@@ -412,22 +412,17 @@ class Hander {
           }
         }
         choose.selectedIndex = bigi;
-
         setVidButton.onclick = (event) => {
           event.preventDefault();
           console.log(vids[choose.selectedIndex].src);
           videoObj = vids[choose.selectedIndex];
-
           videoObj.addEventListener("play", onplay);
           videoObj.addEventListener("playing", onplay);
           videoObj.addEventListener("progress", onplay);
-
           videoObj.addEventListener("seeked", onplay);
           videoObj.addEventListener("seeking", onpause);
-
           videoObj.addEventListener("pause", onpause);
           videoObj.addEventListener("waiting", onpause);
-
         }
         }, 500); //TODO: Reliable way to know if loaded
     })
@@ -444,6 +439,7 @@ class Hander {
 
 		const inputOffsetI = inputOffset.getElementsByTagName("input")[0];
 		inputOffsetI.style.marginBottom = '4px';
+    inputOffsetI.value = handydelay;
 
 
     
@@ -455,42 +451,47 @@ class Hander {
 		var root_ui = funnyui();
 		root_ui.appendChild(selecting);
 
-
 		//Video listening
 		while (videoObj==null) {
 			videoObj = getElementByXpath(xpth);
 			await sleep(100);
 		}
 
+    function setOffset() {
+        handydelay = inputOffsetI.value;
+        GM_setValue("hs_handydelay", handydelay)
+				hand.setOffset(handydelay);
+    }
+		inputOffsetI.addEventListener("blur", function(event) {
+			setOffset();
+		});
 		inputOffsetI.addEventListener("keyup", function(event) {
 			if (event.keyCode === 13) {
 				event.preventDefault();
-				hand.setOffset(inputOffsetI.value);
+        setOffset();
 			}
 		});
 
-		inputText.addEventListener("blur", function(event) {
-			handyKey = inputText.value;
-			GM_setValue('handy_key', handyKey);
-			if (scriptUrl && handyKey) {
+    function setKey() {
+      handyKey = inputText.value;
+			GM_setValue('hs_handykey', handyKey);
+			console.log(scriptUrl);
+			if (scriptUrl) {
 				uploadButton.disabled = false;
 			} else {
 				uploadButton.disabled = true;
 			}
+    }
+    
+		inputText.addEventListener("blur", function(event) {
+			setKey();
 		});
 		inputText.addEventListener("keyup", function(event) {
 			// Number 13 is the "Enter" key on the keyboard
 			if (event.keyCode === 13) {
 				// Cancel the default action, if needed
 				event.preventDefault();
-				handyKey = inputText.value;
-				GM_setValue('handy_key', handyKey);
-				console.log(scriptUrl);
-				if (scriptUrl) {
-					uploadButton.disabled = false;
-				} else {
-					uploadButton.disabled = true;
-				}
+				setKey();
 			}
 		});
 		
@@ -498,22 +499,6 @@ class Hander {
 			event.preventDefault();
 			hand.onReady(handyKey, scriptUrl);
 		});
-
-		/*inputOffsetI.addEventListener("keyup", function(event) {
-			if (event.keyCode === 13) {
-				event.preventDefault();
-				hand.setOffset(inputOffsetI.value);
-			}
-		});
-		inputText.addEventListener("keyup", function(event) {
-			// Number 13 is the "Enter" key on the keyboard
-			if (event.keyCode === 13) {
-				// Cancel the default action, if needed
-				event.preventDefault();
-				handyKey = inputText.value;
-				hand.onReady(handyKey, scriptUrl);
-			}
-		});*/
 
 
 		finputText.addEventListener("change", function(event) {
@@ -547,6 +532,11 @@ class Hander {
 						document.getElementById("state").innerHTML += "<li>Error " + response.status + " occurred when trying to upload your file.</li>";
 					}
 					console.log(jsonResponse);
+					  try {
+					    hand.onReady(handyKey, scriptUrl);
+					  } catch (err) {
+					    console.log("Not ready yet", err)
+					  }
 				}
 			});
 
