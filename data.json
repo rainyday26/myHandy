@@ -18,5 +18,17 @@
 	{
 		"url_regex": "https%3A%2F%2Fpixeldrain.com%2Fu%2F.*",
 		"video_xpath": "//div[@class='image-container']/video"
+	},
+	{
+		"url_regex": "https%3A%2F%2Frule34.xxx%2Findex.php.*page%3Dpost.*",
+		"video_xpath": "//video[@id='gelcomVideoPlayer']"
+	},
+	{
+		"url_regex": "https%3A%2F%2Fwww.porntrex.com%2Fvideo%2F.*%2F.*",
+		"video_xpath": "//div[@id='kt_player']/div[contains(@class, 'player')]/video"
+	},
+	{
+		"url_regex": "https%3A%2F%2Fwww.xvideos.com%2Fvideo.*",
+		"video_xpath": "//div[@id='hlsplayer']/div[@class='video-bg-pic']/video"
 	}
 ]
