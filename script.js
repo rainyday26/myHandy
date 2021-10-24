@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		 theHandy support for PornHub
 // @namespace	http://tampermonkey.net/
-// @version	  1.7
+// @version	  1.8
 // @downloadURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @updateURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @description  Web support for the Handy
@@ -16,6 +16,8 @@
 //Backported changes by jabiim
 
 /*
+Update 1.8
+Z-Index fix
 Update 1.7
 Hide some debug information
 Update 1.6
@@ -226,7 +228,7 @@ class Hander {
 	  window.style =  "position: absolute; " + 
 					  "top: 0px; " + 
 					  "left: 0px; " + 
-					  "z-index: 9; " + 
+					  "z-index: 999999998; " + 
 					  "background-color: #f1f1f1; " + 
 					  "border: 1px solid #d3d3d3; " + 
 					  "color: #000000; " + 
@@ -238,7 +240,7 @@ class Hander {
 	  header.innerHTML = "theHandy support for The Web";
 	  header.style =  "padding: 10px; " + 
 					  "cursor: move; " + 
-					  "z-index: 10; " + 
+					  "z-index: 999999999; " + 
 					  "background-color: #2196F3; " + 
 					  "color: #fff";
 	  window.appendChild(header);
