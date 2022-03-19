@@ -298,6 +298,7 @@ class Hander {
 			background-color: #000;
 			border: 1px solid #ccc;
 			border-radius: 5px;
+			z-index: 2147483648; 
 			position: fixed;
 			height: 50px;
 			width: 50px;
@@ -368,6 +369,10 @@ class Hander {
 		
 		document.getElementsByTagName("body")[0].appendChild(head);
 		
+		//Default to hidden
+		window.style.display = 'none';
+		iconRef.style.display = 'flex';
+
 		return window;
 	}
 	
