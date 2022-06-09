@@ -31,10 +31,13 @@
 		"url_regex": "https%3A%2F%2Fwww.povaddict.com%2F.*",
 		"video_xpath": "[@id='video-player_html5_api']"
 	},
-	
 	{
 		"url_regex": "https%3A%2F%2Fwww.manyvids.com%2FVideo%2F.*",
 		"video_xpath": "[@class='rmp-object-fit-contain rmp-video']"
+	},
+	{
+		"url_regex": "https%3A%2F%2Fwww.mega.nz%2F.*",
+		"video_xpath": "//video[@id='video']"
 	},
 	
 	{
