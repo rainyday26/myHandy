@@ -39,6 +39,11 @@
 		"url_regex": "https%3A%2F%2Fwww.mega.nz%2F.*",
 		"video_xpath": "//video[@id='video']"
 	},
+		{
+		"url_regex": "https%3A%2F%2Fwww.erome.com%2Fa%2F.*",
+		"video_xpath": "//video[@class='vjs-tech']"
+	},
+	
 	
 	{
 		"url_regex": "https%3A%2F%2Fwww.xvideos.com%2Fvideo.*",
