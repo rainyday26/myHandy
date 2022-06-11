@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		 theHandy support for PornHub
 // @namespace	http://tampermonkey.net/
-// @version	  2.1
+// @version	  2.1.1
 // @downloadURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @updateURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @description  Web support for the Handy
@@ -513,6 +513,7 @@ class Config {
     stats.style.overflow="scroll";
     stats.style.textAlign="left";
     stats.style.backgroundColor="rgb(119, 119, 119)";
+    stats.style.color="rgb(255,144,0)";
 
 		selecting.appendChild(stats);
 		
