@@ -44,7 +44,7 @@
 		"video_xpath": "//video[@class='vjs-tech']"
 	},
 	{
-		"url_regex": "https%3A%2F%2Fwww.hentaihaven.xxx%2Fwatch%2F.*",
+		"url_regex": "https%3A%2F%2Fhentaihaven.xxx%2Fwatch%2F.*",
 		"video_xpath": "//video[@class='jw-video jw-reset']"
 	},
 	
