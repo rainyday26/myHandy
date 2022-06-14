@@ -47,10 +47,12 @@
 		"url_regex": "https%3A%2F%2Fhentaihaven.xxx%2Fwatch%2F.*",
 		"video_xpath": "//video[@class='jw-video']"
 	},
-	
-	
 	{
-		"url_regex": "https%3A%2F%2Fwww.xvideos.com%2Fvideo.*",
+		"url_regex": "https%3A%2F%2Fwww.povaddict.com%2F.*",
+		"video_xpath": "[@id='hls-video']"
+	},
+	{
+		"url_regex": "https%3A%2F%2Fpornez.net%2Fvideo.*",
 		"video_xpath": "//div[@id='hlsplayer']/div[@class='video-bg-pic']/video"
 	}
 ]
