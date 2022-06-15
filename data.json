@@ -13,7 +13,7 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fecchi.iwara.tv%2Fvideos%2F.*",
-		"video_xpath": "[@id='video-player_html5_api']"
+		"video_xpath": "//video[@id='video-player_html5_api']"
 	},
 	{
 		"url_regex": "https%3A%2F%2Fpixeldrain.com%2Fu%2F.*",
@@ -29,11 +29,11 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fwww.povaddict.com%2F.*",
-		"video_xpath": "[@id='video-player_html5_api']"
+		"video_xpath": "//video[@id='video-player_html5_api']"
 	},
 	{
 		"url_regex": "https%3A%2F%2Fwww.manyvids.com%2FVideo%2F.*",
-		"video_xpath": "[@class='rmp-object-fit-contain rmp-video']"
+		"video_xpath": "//video[@class='rmp-object-fit-contain rmp-video']"
 	},
 	{
 		"url_regex": "https%3A%2F%2Fwww.mega.nz%2F.*",
@@ -49,7 +49,7 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fpornez.net%2Fvideo.*",
-		"video_xpath": "[@id='hls-video']"
+		"video_xpath": "//video[@id='hls-video']"
 	},
 	
 	{
