@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		 theHandy support for PornHub
 // @namespace	http://tampermonkey.net/
-// @version	  2.0
+// @version	  2.1.1
 // @downloadURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @updateURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
 // @description  Web support for the Handy
@@ -18,6 +18,8 @@
 //Backported changes by jabiim
 
 /*
+Update 2.1
+A bit nicer UI
 Update 2.0
 Closable and reopenable window by jabiim
 Update 1.9
@@ -204,14 +206,48 @@ class Hander {
 	}
 }
 
+class Config {
+  constructor() {}
+  setValue(key, value) {
+    GM_setValue(key, value);
+  }
+  getValue(key) {
+    return GM_getValue(key);
+  }
+  getValue(key, other) {
+    return GM_getValue(key, other);
+  }
+  //TODO: Move website supported here
+  
+  getHandyKey() {
+    return this.getValue("handy_key", null);
+  }
+  setHandyKey(key) {
+    this.setValue("handy_key", key);
+  }
+  getHandyDelay() {
+    return this.getValue("handy_delay", null);
+  }
+  setHandyDelay(key) {
+    this.setValue("handy_delay", key);
+  }
+  getMenuShown() {
+    return this.getValue("menu", true);
+  }
+  setMenuShown(value) {
+    this.setValue("menu", value);
+  }
+}
+
+
+
 (function() {
 	'use strict';
 	
 	var scriptUrl = null;
-	var handyKey = GM_getValue("hs_handykey", null);
-	var handydelay = GM_getValue("hs_handydelay", 0);
 	var videoObj = null;
-	var hand = new Hander();
+	const hand = new Hander();
+  const cfg = new Config();
 	
 	function getElementByXpath(path) {
 		return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
@@ -223,7 +259,7 @@ class Hander {
 	
 	function shouldHand() {
 		//console.log(scriptUrl, handyKey);
-		return scriptUrl != null && handyKey != null;
+		return scriptUrl != null && cfg.getHandyKey() != null;
 	}
 	
 	function onplay(e) {
@@ -239,7 +275,7 @@ class Hander {
 			hand.onPause();
 		}
 	}
-	
+  
 	function funnyui() {
 		const head = document.createElement("div");
 		
@@ -249,10 +285,13 @@ class Hander {
 			top: 0px; 
 			left: 0px; 
 			z-index: 2147483647; 
-			background-color: #f1f1f1; 
-			border: 1px solid #d3d3d3; 
+			background-color: rgb(119, 119, 119);
 			color: #000000; 
 			text-align: center; 
+      max-width: 30%;
+      max-height: 25%;
+      min-width: 400px;
+      min-height: 300px;
 		`;
 		window.id = "nodudewashere";
 		head.appendChild(window);
@@ -266,7 +305,7 @@ class Hander {
 			padding: 10px; 
 			cursor: move; 
 			z-index: 2147483648; 
-			background-color: #2196F3; 
+			background-color: rgb(33,37,41);
 			color: #fff;
 			display: flex;
 			flex-direction: row;
@@ -291,6 +330,7 @@ class Hander {
 			console.log('clicked');
 
 			window.style.display = 'none';
+      cfg.setMenuShown(false);
 			iconRef.style.display = 'flex';
 		});
 
@@ -298,6 +338,7 @@ class Hander {
 			background-color: #000;
 			border: 1px solid #ccc;
 			border-radius: 5px;
+      z-index: 2147483648; 
 			position: fixed;
 			height: 50px;
 			width: 50px;
@@ -312,6 +353,7 @@ class Hander {
 
 		iconRef.addEventListener('mousedown', ()=>{
 			window.style.display = 'block';
+      cfg.setMenuShown(true);
 			iconRef.style.display = 'none';
 		});
 
@@ -368,9 +410,14 @@ class Hander {
 		
 		document.getElementsByTagName("body")[0].appendChild(head);
 		
+    //Default to hidden
+		window.style.display = cfg.getMenuShown() ? "block" : "none";
+    iconRef.style.display = cfg.getMenuShown() ? "none" : "flex";
+
 		return window;
 	}
 	
+  //TODO: Move to config
 	async function shouldLoad() {
 		await GM_xmlhttpRequest({
 			//TODO: Should be release relative
@@ -424,8 +471,9 @@ class Hander {
 		inputText.className = 'input-text';
 		inputText.style.width = '200px';
 		inputText.style.marginBottom = '4px';
-		inputText.type = "text";
-		inputText.value = handyKey;
+		inputText.style.backgroundImage = 'none';
+		inputText.type = "search"; //Tell the pesky password managers to fuck off
+		inputText.value = cfg.getHandyKey();
 		inputText.placeholder = "Enter connection key";
 		inputText.style.display = 'block';
 		
@@ -441,63 +489,6 @@ class Hander {
 		
 		selecting.appendChild(finputText);
 		
-		/*
-		const setVidButton = document.createElement("input");
-		setVidButton.className = 'submit-comment xh-button large red'
-		setVidButton.style.marginBottom = '4px';
-		setVidButton.type = 'button';
-		setVidButton.value = "Set video element";
-		setVidButton.style.display = 'block';
-		const choose = document.createElement("select");
-		choose.onhover = (event) => {
-			//TODO: Highlight
-		}
-		window.addEventListener("load", function () {
-			setTimeout(function(){
-				const vids = document.getElementsByTagName("video");
-				for (var i=0; i<vids.length; i++) {
-					const vid = vids[i];
-					const tmp = document.createElement("option");
-					tmp.value = i;
-					var sources = vid.getElementsByTagName("source");
-					if (sources.length > 0) {
-						tmp.innerHTML = vid.getElementsByTagName("source")[0].src;
-					} else {
-						tmp.innerHTML = "unknown";
-					}
-					choose.appendChild(tmp);
-				}
-				
-				//TODO: Support for builtin
-				var bigi = 0;
-				var bigd = 0;
-				for (var i in vids) {
-					const vid = vids[i];
-					const vidsize = vid.videoHeight * vid.videoWidth;
-					if (vid.videoHeight * vid.videoWidth > bigd) {
-						bigi = i;
-						bigd = vidsize;
-					}
-				}
-				choose.selectedIndex = bigi;
-				setVidButton.onclick = (event) => {
-					event.preventDefault();
-					console.log(vids[choose.selectedIndex].src);
-					videoObj = vids[choose.selectedIndex];
-					videoObj.addEventListener("play", onplay);
-					videoObj.addEventListener("playing", onplay);
-					videoObj.addEventListener("progress", onplay);
-					videoObj.addEventListener("seeked", onplay);
-					videoObj.addEventListener("seeking", onpause);
-					videoObj.addEventListener("pause", onpause);
-					videoObj.addEventListener("waiting", onpause);
-				}
-			}, 500); //TODO: Reliable way to know if loaded
-		})
-		selecting.appendChild(choose);
-		selecting.appendChild(document.createElement("br"));
-		*/
-		
 		const inputOffset = document.createElement("label");
 		inputOffset.innerHTML += 'Offset:<input class="input-text" style="display: inline-block; width: 200px; margin-left: 4px" type="number" name="Offset" value="0"><span> ms</span></label>';
 		selecting.appendChild(inputOffset);
@@ -507,27 +498,32 @@ class Hander {
 		
 		const inputOffsetI = inputOffset.getElementsByTagName("input")[0];
 		inputOffsetI.style.marginBottom = '4px';
-		inputOffsetI.value = handydelay;
+		inputOffsetI.value = cfg.getHandyDelay();
 		
 		
+		var txt = document.createElement("a");
+    txt.innerHTML = "Log";
+		selecting.appendChild(txt);
+    
 		
-		var stats = document.createElement("a");
+		var stats = document.createElement("div");
 		stats.id="state";
+    stats.style.maxWidth="100%";
+    stats.style.height="150px"; //maxHeight doesn't work, for some reason
+    stats.style.overflow="scroll";
+    stats.style.textAlign="left";
+    stats.style.backgroundColor="rgb(119, 119, 119)";
+    stats.style.color="rgb(255,144,0)";
+
 		selecting.appendChild(stats);
 		
 		
 		var root_ui = funnyui();
 		root_ui.appendChild(selecting);
 		
-		//Video listening
-		while (videoObj==null) {
-			videoObj = getElementByXpath(xpth);
-			await sleep(100);
-		}
-		
 		function setOffset() {
-			handydelay = inputOffsetI.value;
-			GM_setValue("hs_handydelay", handydelay)
+			const handydelay = inputOffsetI.value;
+      cfg.setHandyDelay(handydelay);
 			hand.setOffset(handydelay);
 		}
 
@@ -543,8 +539,8 @@ class Hander {
 		});
 		
 		function setKey() {
-			handyKey = inputText.value;
-			GM_setValue('hs_handykey', handyKey);
+			const handyKey = inputText.value;
+      cfg.setHandyKey(handyKey);
 			console.log(scriptUrl);
 			if (scriptUrl) {
 				uploadButton.disabled = false;
@@ -593,8 +589,8 @@ class Hander {
 					if (response.status == 200) {
 						document.getElementById("state").innerHTML += "<li>Script Uploaded to Handy Servers!</li>";
 						scriptUrl = JSON.parse(jsonResponse).url;
-						console.log(handyKey);
-						if (handyKey) {
+						console.log(cfg.getHandyKey());
+						if (cfg.getHandyKey()) {
 							uploadButton.disabled = false;
 						} else {
 							uploadButton.disabled = true;
@@ -604,7 +600,7 @@ class Hander {
 					}
 					console.log(jsonResponse);
 					try {
-						hand.onReady(handyKey, scriptUrl);
+						hand.onReady(cfg.getHandyKey(), scriptUrl);
 					} catch (err) {
 						console.log("Not ready yet", err)
 					}
@@ -613,6 +609,12 @@ class Hander {
 			
 			event.preventDefault();
 		}, false);
+		
+		//Video listening
+		while (videoObj==null) {
+			videoObj = getElementByXpath(xpth);
+			await sleep(100);
+		}
 		
 		videoObj.addEventListener("play", onplay);
 		videoObj.addEventListener("playing", onplay);
@@ -626,8 +628,37 @@ class Hander {
 		
 		console.log("Done!");
 	}
+  
+  
+  function unfinished_functionality() {
+    window.addEventListener('mouseover', function (e) {
+        updateMask(e.target);
+    });
+
+    function updateMask(target) {
+        let elements = document.getElementsByClassName("highlight-wrap")
+        let hObj
+        if (elements.length !== 0) {
+            hObj = elements[0]
+        } else {
+            hObj = document.createElement("div");
+            hObj.className = 'highlight-wrap';
+            hObj.style.position = 'absolute';
+            hObj.style.backgroundColor = '#205081';
+            hObj.style.opacity = '0.5';
+            hObj.style.cursor = 'default';
+            hObj.style.pointerEvents = 'none';
+            document.body.appendChild(hObj);
+        }
+        let rect = target.getBoundingClientRect();
+        hObj.style.left = (rect.left + window.scrollX) + "px";
+        hObj.style.top = (rect.top + window.scrollY) + "px";
+        hObj.style.width = rect.width + "px";
+        hObj.style.height = rect.height + "px";
+    }
+  }
+  
 	
-	//init();
 	shouldLoad();
 	
 })();
