@@ -55,7 +55,11 @@
 		"url_regex": "https%3A%2F%2Fpornez.net%2Fvideo.*",
 		"video_xpath": "//video[@id='hls-video']"
 	},
-	
+	{
+		"url_regex": "https%3A%2F%2Fpornwild.com%2Fru%2Fvideos%2F.*",
+		"video_xpath": "//video[@class='fp-engine']"
+	},
+		
 	{
 		"url_regex": "https%3A%2F%2Fwww.xvideos.com%2Fvideo.*",
 		"video_xpath": "//div[@id='hlsplayer']/div[@class='video-bg-pic']/video"
