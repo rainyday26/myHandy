@@ -421,7 +421,7 @@ class Config {
 	async function shouldLoad() {
 		await GM_xmlhttpRequest({
 			//TODO: Should be release relative
-			url: "https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/data.json",
+			url: "https://raw.githubusercontent.com/rainyday26/myHandy/master/data.json",
 			synchronous: true,
 			method: "GET",
 			onload: function(response) {
