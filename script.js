@@ -2,8 +2,8 @@
 // @name		 theHandy support for PornHub
 // @namespace	http://tampermonkey.net/
 // @version	  2.1.1
-// @downloadURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
-// @updateURL https://raw.githubusercontent.com/NodudeWasTaken/theHandy_Web/master/script.js
+// @downloadURL https://raw.githubusercontent.com/rainyday26/myHandy/master/script.js
+// @updateURL https://raw.githubusercontent.com/rainyday26/myHandy/master/script.js
 // @description  Web support for the Handy
 // @author	   Nodude
 // @match		*://*/*
