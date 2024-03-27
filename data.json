@@ -12,12 +12,12 @@
 		"video_xpath": "//div[@id='kt_player']/div[@class='fp-player']/video"
 	},
 	{
-		"url_regex": "https%3A%2F%2Fwww.iwara.tv%2Fvideos%2F.*",
-		"video_xpath": "//div[@id='vjs_video_3']"
+		"url_regex": "https%3A%2F%2Fecchi.iwara.tv%2Fvideos%2F.*",
+		"video_xpath": "//video[@id='video-player_html5_api']"
 	},
 	{
 		"url_regex": "https%3A%2F%2Fpixeldrain.com%2Fu%2F.*",
-		"video_xpath": "//div[@class='player-and-contros-svelte-lxgla9']/video"
+		"video_xpath": "//div[@class='image-container']/video"
 	},
 	{
 		"url_regex": "https%3A%2F%2Frule34.xxx%2Findex.php.*page%3Dpost.*",
