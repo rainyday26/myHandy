@@ -12,7 +12,7 @@
 		"video_xpath": "//div[@id='kt_player']/div[@class='fp-player']/video"
 	},
 	{
-		"url_regex": "https%3A%2F%2Fiwara.tv%2Fvideo%2F.*",
+		"url_regex": "https%3A%2F%2Fwww.iwara.tv%2Fvideo%2F.*",
 		"video_xpath": "//video[@id='vjs_video_3_html5_api']"
 	},
 	{
