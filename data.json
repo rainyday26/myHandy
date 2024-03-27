@@ -1,4 +1,4 @@
-hi[
+[
 	{
 		"url_regex": "https%3A%2F%2F.*.pornhub.com%2Fview_video..*%3Fviewkey%3D.*",
 		"video_xpath": "//div[contains(@class,'_videoWrapper')]/video"
