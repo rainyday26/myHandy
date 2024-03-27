@@ -33,7 +33,7 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fhanime.tv%2Fvideos%2Fhentai%2F.*",
-		"video_xpath": "//video[@id='video-player_html5_api']"
+		"video_xpath": "//video[@id='primary_video_html5_api']"
 	},
 	{
 		"url_regex": "https%3A%2F%2Fwww.manyvids.com%2FVideo%2F.*",
