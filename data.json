@@ -5,7 +5,7 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fpmvhaven.com*%2Fvideo%2F.*",
-		"video_xpath": "//video[@id='VideoPlayer']"
+		"video_xpath": "//div[@id='fluid_video_wrapper_VideoPlayer']/video"
 	},
 	{
 		"url_regex": "https%3A%2F%2F.*spankbang.com%2F.*%2Fvideo%2F.*",
