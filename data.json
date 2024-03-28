@@ -13,7 +13,7 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fwww.iwara.tv%2Fvideo%2F.*",
-		"video_xpath": "//div[@class='vjs-tech']/video"
+		"video_xpath": "//video[@class='vjs-tech']/video"
 	},
 	{
 		"url_regex": "https%3A%2F%2Fpixeldrain.com%2Fu%2F.*",
