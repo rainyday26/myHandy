@@ -9,7 +9,7 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fwww.eporner.com*%2Fvideo-..%2F.*",
-		"video_xpath": "//video[@id='EPvideo_html5_api']/video"
+		"video_xpath": "//video[@class='vjs-tech']/video"
 	},
 	{
 		"url_regex": "https%3A%2F%2F.*spankbang.com%2F.*%2Fvideo%2F.*",
