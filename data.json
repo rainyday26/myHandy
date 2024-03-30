@@ -8,6 +8,10 @@
 		"video_xpath": "//div[@id='fluid_video_wrapper_VideoPlayer']/video"
 	},
 	{
+		"url_regex": "https%3A%2F%2Fwww.eporner.com*%2Fvideo-..%2F.*",
+		"video_xpath": "//div[@id='EPvideo']/video"
+	},
+	{
 		"url_regex": "https%3A%2F%2F.*spankbang.com%2F.*%2Fvideo%2F.*",
 		"video_xpath": "//video[@id='main_video_player_html5_api']"
 	},
