@@ -25,11 +25,11 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fpixeldrain.com%2Fu%2F.*",
-		"video_xpath": "//video[@class='image-container']/video"
+		"video_xpath": "//div[@class='image-container']/video"
 	},
 	{
 		"url_regex": "https%3A%2F%2Fpixeldrain.com%2FI%2F.*",
-		"video_xpath": "//div[@class='player.svelte-1xglya9']"
+		"video_xpath": "//video[@class='player.svelte-1xglya9']"
 	},
 	{
 		"url_regex": "https%3A%2F%2Frule34.xxx%2Findex.php.*page%3Dpost.*",
