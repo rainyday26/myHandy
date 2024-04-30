@@ -28,7 +28,7 @@
 		"video_xpath": "//div[@class='image-container']/video"
 	},
 	{
-		"url_regex": "https%3A%2F%2Fpixeldrain.com%2FI%2F.*",
+		"url_regex": "https%3A%2F%2Fpixeldrain.com%2Fl%2F.*",
 		"video_xpath": "//div[@class='player_and_controls.svelte-1xglya9']/video"
 	},
 	{
