@@ -25,7 +25,7 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fpixeldrain.com%2Fl%2F.*",
-		"video_xpath": "//div[@class='container.svelte-1xglya9']/div[@class='player_and_controls.svelte-1xglya9']/video"
+		"video_xpath": "//div[@class='container_svelte-1xglya9']/div[@class='player_and_controls_svelte-1xglya9']/video"
 	},
 	{
 		"url_regex": "https%3A%2F%2Frule34.xxx%2Findex.php.*page%3Dpost.*",
