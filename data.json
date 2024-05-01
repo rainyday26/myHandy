@@ -8,6 +8,10 @@
 		"video_xpath": "//div[@id='fluid_video_wrapper_VideoPlayer']/video"
 	},
 	{
+		"url_regex": "https%3A%2F%2Fe621.net*%2Fposts%2F.*",
+		"video_xpath": "//video[@id='image']"
+	},
+	{
 		"url_regex": "https%3A%2F%2Fwww.eporner.com*%2Fvideo-..%2F.*",
 		"video_xpath": "//video[@class='vjs-tech']"
 	},
