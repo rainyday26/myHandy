@@ -29,7 +29,7 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fwww.noodledude.io%2Fvideos%2F.*",
-		"video_xpath": "//div[@class='plyr_video-wrapper']/video"
+		"video_xpath": "//video[@preload='auto']"
 	},
 	{
 		"url_regex": "https%3A%2F%2Frule34.xxx%2Findex.php.*page%3Dpost.*",
