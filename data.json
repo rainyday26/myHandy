@@ -25,7 +25,7 @@
 	},
 	{
 		"url_regex": "https%3A%2F%2Fwww.iwara.tv%2Fvideo%2F.*",
-		"video_xpath": "//div[@id='vjs_video_3']/video"
+		"video_xpath": "//video[@class='vjs_tech3']"
 	},
 	{
 		"url_regex": "https%3A%2F%2Fwww.noodledude.io%2Fvideos%2F.*",
